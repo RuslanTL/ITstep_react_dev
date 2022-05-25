@@ -1,0 +1,14 @@
+.App {
+  text-align: center;
+}
+
+.taskList{
+  margin-top:40px;
+}
+.options{
+  margin-bottom:20px;
+}
+.task_{
+  display:flex;
+  justify-content: center;
+}

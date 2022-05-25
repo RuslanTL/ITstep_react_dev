@@ -1,0 +1,19 @@
+.task{
+    display:flex;
+    align-items:center;
+    justify-content: center;
+}
+.border{
+    width:2px;
+    height:15px;
+    margin-left:5px;
+    margin-right:5px;
+    background-color:black;
+}
+.addTask{
+    margin-bottom:20px;
+}
+.addTask input, .addTask label, .addTask select, .addTask button{
+    margin-left:5px;
+    margin-right:5px;
+}
