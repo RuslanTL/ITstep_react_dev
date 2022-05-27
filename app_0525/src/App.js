@@ -6,6 +6,7 @@ import {AddTask} from './components/AddTask'
 import {DeleteTask} from './components/DeleteTask'
 import {SortTask} from './components/SortTask'
 function App() {
+  
   const [tasks, setTask] = useState([
     {
       id:1,
@@ -38,15 +39,13 @@ function App() {
     setTask([...tasks,obj])
   }
   const deleteTask=(id)=>{
-    let arr = [...tasks]
-    setTask(arr.filter(item=>item.id!==id));
+    setTask(tasks.filter(item=>item.id!==id));
   }
   const deleteAll=()=>{
     setTask([]);
   }
   const deleteDone=()=>{
-    
-    setTask(tasks.filter(item=>item.status!==true));
+    setTask(tasks.filter(item=>item.status!=true));
   }
   const sortTasks=()=>{
     let arr=[...tasks]
@@ -66,7 +65,13 @@ function App() {
     });
     return id+1;
   }
+  const setPriority=(id,priority)=>{
+    const index=tasks.findIndex(t=>t.id==id);
+    const temp = [...tasks]
+    temp[index].priority=priority
+    setTask(temp);
 
+  }
   return (
     <div className="App">
       <div className="taskList">
@@ -76,11 +81,24 @@ function App() {
           <button onClick={deleteDone}>Delete Done</button>
           <SortTask method={sortTasks}/>
         </div>
+        {
+          tasks.forEach(item=>{
+            console.log(item);
+          })
+        }
 
         {
           tasks.map(item=>
             <div className="task_">
-              <Task item={item}/>
+              {/* <p>{item.text} {item.priority} {item.status.toString()}</p> */}
+              <Task 
+              id={item.id}
+              text={item.text}
+              priority={item.priority}
+              status={item.status}
+              
+              setPriority={setPriority}/>
+              
               <DeleteTask id={item.id} method={deleteTask}/>
             </div>
           )
