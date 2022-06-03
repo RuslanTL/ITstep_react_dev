@@ -1,17 +1,19 @@
 import React,{useState} from 'react'
 
 export const Question = (props) => {
-  const [correct, setCorrect] = useState(0); //0 - undefined 1 - incorrect 2 - correct
-  const checkCorrect=(answer)=>{
-    if(answer.value==props.correct){
-      console.log("correct");
-    } else{
-      console.log("wrong")
-    }
-  
+  const check=(answer)=>{
+    props.method(props.id,answer.value);
+
+
+    // if(answer.value==props.correct){
+    //   console.log("correct");
+      
+    // } else{
+    //   console.log("wrong")
+    // }
   }
   return (
-    <div className="question">
+    <div value={props.id} className="question">
       <h3>Question {props.id}:</h3>
       <h2>{props.question}</h2>
       <div className="options">
@@ -23,7 +25,7 @@ export const Question = (props) => {
             {backgroundColor:"white"}
             
             
-            } value={answer.id} className = "option" onClick={(e)=>checkCorrect(e.currentTarget)}>
+            } value={answer.id} className = {"option "+props.id+"-"+answer.id+" "+(answer.checked? "checked" : "")} onClick={(e)=>check(e.currentTarget)}>
             <h4>{answer.id}</h4>
             <h3>{answer.text}</h3>
           </button>
