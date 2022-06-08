@@ -43,35 +43,48 @@ export const Cart = ({cart,setCart}) => {
         }
         setTotal(sum);
     }
-    const remove=(id)=>{
-        console.log(id);
-        setCart(cart.filter(item=>item.id!=id))
+    const remove=(unique)=>{
+        setCart(cart.filter(item=>item.unique!=unique))
+    }
+    
+    const insert = (arr, index, newItem) => [...arr.slice(0, index), newItem, ...arr.slice(index) ]
+    const add=(copyItem)=>{
+        const indexItem = cart.findIndex(item=>item.unique==copyItem.unique);
+        console.log(indexItem)
+        const newItem = copyItem;
+        newItem.unique=Math.floor(Date.now() * Math.random())
+        setCart(insert(cart,indexItem,newItem));
     }
     return (
         <div className="cart">
             <h1>{cart.length}</h1>
             <img src={cartImg} alt="cart" onClick={toggleDropdown}></img>
             <div className={dropdown}>
-                <ul>
+                <ol>
                 {
                     (cleared)? "":
-                    cart.map(item=>
+                    cart.map((item)=>
                         <li>
                             <div className="cartItem">
                                 <p>{item.title}</p>
                                 <hr />
                                 <b>${item.price}</b>
                                 <hr />
-                                <button className="removeBtn" onClick={e=>remove(item.id)}>-</button>
+                                <div className="buttons">
+                                    <button className="itemBtn addBtn" onClick={(e)=>add(item)}>+</button>
+                                    <button className="itemBtn removeBtn" onClick={(e)=>remove(item.unique)}>-</button>
+                                </div>
+                                
                             </div>
                         </li>
                         
                     )
                                         
                 }   
+                <h4>Items: {cart.length}</h4>
                 <h4>Total:  ${total}</h4>
                 <button onClick={clear}>CLEAR</button>
-                </ul>
+                </ol>
             </div>
         </div>
     )

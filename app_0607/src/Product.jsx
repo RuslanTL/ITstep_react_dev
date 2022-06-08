@@ -3,14 +3,15 @@ import React,{useState,useEffect} from 'react';
 
 export const Product = (props) => {
   const buyProduct=()=>{
-
+    const item = {...props, unique: Math.floor(Date.now() * Math.random())}
+    console.log(item)
     if(localStorage.getItem('cart')==null){
       const arr =[]
-      arr.push(props)
+      arr.push(item)
       props.setCart(arr)
     } else{
       const json = JSON.parse(localStorage.getItem('cart'))
-      json.push(props)
+      json.push(item)
       props.setCart(json)
       console.log(props.cart)
     }
